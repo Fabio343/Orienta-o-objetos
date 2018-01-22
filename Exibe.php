@@ -15,8 +15,8 @@
      ?>
     <h2>Cliente</h2>
 
-    <h4>Nome:<? $cliente->nome ?></h4>
-    <h4>Email:<? $cliente->email ?></h4>
+    <h4>Nome:<?= $cliente->nome ?></h4>
+    <h4>Email:<?= $cliente->email ?></h4>
 
   </body>
 </html>
