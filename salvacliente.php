@@ -16,20 +16,29 @@
       $cliente = new Cliente();
       $cliente->nome = $_POST['nome'];
       $cliente->email = $_POST['email'];
-      $sql = "INSERT INTO clientes (nome, email) values
-              ('$cliente->nome', '$cliente->email')";
-      $saida = $conexao->query($sql);
+
+
+
+
+      $sql = "INSERT INTO clientes (nome, email) values(?, ?)";
+      $comando=$conexao->prepare($sql);
+      $comando->bind_param("ss", $cliente->nome, $cliente->email);
+
+      $saida=$comando->execute();
     ?>
 
     <h1>Cliente</h1>
 
     <?php if($saida === true) { ?>
       <h3>Cliente salvo com sucesso</h3>
+      <?php echo $_POST['nome']; ?>
+      <?php echo $_POST['email']; ?>
     <?php } else {
       //var_dump($conexao);
       ?>
-    <h3>Erro: <?= $conexao->error ?> </h3>
+    <h3>Erro não foi possivel adicionar o cliente no sistema de dados: <?= $conexao->error ?> </h3>
     <?php }
+      $comando->close();
       $conexao->close();
      ?>
   </body>
